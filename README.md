@@ -24,7 +24,8 @@ The page loads Three.js, GSAP and Google Fonts from CDNs, so it needs a network 
 - **Drops:** a calendar with the live drop and three upcoming ones, each with a ticking countdown and a Remind me toggle shared with the hero cards.
 - **Lookbook:** six outfits built from the shop's pieces, in the same physics carousel. Add the look puts every piece in the bag.
 - **Nap Club:** member perks, two meet-ups you can save a spot at, and a join form with email validation and a size picker. Mochi falls asleep on this page.
+- **Bag:** everything added from the shop or the lookbook, one line per piece, colour and size. You can change the size, step the quantity or remove a line, and the summary works out shipping, free over $150. Checkout is switched off, and the bag is saved in this browser.
 
-Every page lives behind the curtain at its own hash route (`#/shop`, `#/drops`, `#/lookbook`, `#/nap-club`), so links, back and forward and deep links all work. Moving between pages keeps the curtain up: its edge flaps and Mochi hops over to the new header. The YEK logo, Back to Mochi and Escape all return to the hero.
+Every page lives behind the curtain at its own hash route (`#/shop`, `#/drops`, `#/lookbook`, `#/nap-club`, `#/bag`), so links, back and forward and deep links all work. Moving between pages keeps the curtain up: its edge flaps and Mochi hops over to the new header. The YEK logo, Back to Mochi and Escape all return to the hero.
 
 Product names, prices, drop dates, perks and meet-ups are placeholder content. The join form and reminders don't send anything; the form only remembers you in this browser.

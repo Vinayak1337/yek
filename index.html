@@ -189,6 +189,41 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events
 .join .btn.quiet{background:#0b0a09;color:var(--ink)}
 .join .done-msg{font-size:17px;line-height:1.5;margin:0 0 18px}
 .join ::selection{background:var(--orange);color:#fff}
+
+/* bag */
+.bag-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);gap:clamp(24px,4vw,64px);max-width:1280px;align-items:start}
+.bag-lines{display:flex;flex-direction:column;gap:12px}
+.bag-line{display:grid;grid-template-columns:120px minmax(0,1fr) auto 96px;align-items:center;gap:24px;padding:12px 24px 12px 12px;border-radius:6px;background:var(--surface)}
+.bag-line .art{height:120px;border-radius:4px}
+.bag-line .art svg{width:84%;height:84%}
+.bag-line h3{font-size:clamp(22px,2vw,28px)}
+.bl-opts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:10px;font-size:14px;color:var(--ink-2)}
+.bl-opts label{display:flex;align-items:center;gap:8px}
+.bl-opts select{appearance:none;-webkit-appearance:none;height:36px;padding:0 34px 0 14px;border:0;border-radius:999px;font:inherit;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;
+  background:var(--surface-hi) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%23f3eee7' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 13px center}
+.bl-opts select:hover{background-color:#2f2b27}
+.bl-remove{font-size:14px;font-weight:700;color:var(--ink-2);text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(243,238,231,.35);transition:color .2s}
+.bl-remove:hover{color:var(--amber)}
+.qty{display:flex;align-items:center;gap:2px;padding:4px;border-radius:999px;background:var(--surface-hi)}
+.qty button{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;transition:background .2s,color .2s}
+.qty button:hover{background:var(--ink);color:#0b0a09}
+.qty button[disabled]{opacity:.35;pointer-events:none}
+.qty span{min-width:28px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.bl-price{font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;text-align:right}
+.bag-sum{position:sticky;top:0;padding:28px;border-radius:6px;background:var(--ink);color:#0b0a09}
+.bag-sum h2{font-family:var(--display);font-weight:400;font-size:40px;line-height:.95;text-transform:uppercase;margin:0 0 18px}
+.bag-sum dl{margin:0 0 6px}
+.bag-sum dl div{display:flex;justify-content:space-between;gap:16px;padding:6px 0;font-size:16px;font-variant-numeric:tabular-nums}
+.bag-sum dd{margin:0;font-weight:800}
+.bag-sum .total{margin-top:10px;font-family:var(--display);font-size:32px;text-transform:uppercase}
+.bag-sum .total dd{font-weight:400}
+.bag-sum .note{margin:0 0 20px;font-size:14px;line-height:1.5;color:#3a3633}
+.bag-sum .btn{width:100%;background:var(--orange);color:var(--on-accent)}
+.bag-sum .btn:hover{background:var(--orange-hi)}
+.bag-sum .co-note{min-height:21px;margin:14px 0 0;font-size:14px;line-height:1.5;color:#3a3633}
+.bag-empty{max-width:560px;padding:8px 0}
+.bag-empty h3{font-size:clamp(36px,3.6vw,52px);margin:0 0 14px}
+.bag-empty p{margin:0 0 28px;font-size:17px;line-height:1.5;text-wrap:pretty}
 .back{white-space:nowrap;display:inline-flex;align-items:center;gap:10px;padding:12px 20px 12px 14px;border-radius:999px;font-weight:700;font-size:15px;
   background:var(--surface);transition:background .25s,transform .35s var(--ease-out)}
 .back:hover{background:var(--surface-hi);transform:translateX(-3px)}
@@ -288,6 +323,13 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events
   .perks li{grid-template-columns:64px 1fr;gap:14px;padding:16px}
   .perks b{font-size:30px}
   .meet{flex-direction:column;align-items:flex-start;gap:12px;padding:16px}
+  .bag-grid{grid-template-columns:1fr}
+  .bag-line{grid-template-columns:84px minmax(0,1fr) auto;gap:12px 14px;padding:12px}
+  .bag-line .art{height:84px;grid-row:1/3}
+  .bag-line>div:nth-child(2){grid-column:2/4}
+  .bag-line .qty{grid-column:2;justify-self:start}
+  .bag-line .bl-price{grid-column:3}
+  .bag-sum{position:static;padding:22px}
   .hint,.counter{display:none}
   .arrows button{width:46px;height:46px}
 }
@@ -311,7 +353,7 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events
     <a class="link" href="#/lookbook" data-route="lookbook">Lookbook</a>
     <a class="link" href="#/nap-club" data-route="nap-club">Nap Club</a>
   </div>
-  <button class="bag" id="bag" type="button" aria-live="polite">Bag <b id="bagCount">0</b></button>
+  <a class="bag" id="bag" href="#/bag" data-route="bag" aria-label="Bag, 0 items">Bag <b id="bagCount" aria-hidden="true">0</b></a>
 </nav>
 
 <main>
@@ -431,6 +473,19 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events
           </div>
         </form>
       </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-bag" aria-label="Your bag" aria-hidden="true">
+    <div class="page-head">
+      <h2 class="page-title" tabindex="-1" data-in>Your<br>bag</h2>
+      <div class="page-meta" data-in>
+        <p id="bagMeta" aria-live="polite">Nothing in here yet.</p>
+        <button class="back" type="button"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15 9H3M8 4L3 9l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to Mochi</button>
+      </div>
+    </div>
+    <div class="page-body">
+      <div id="bagWrap"></div>
     </div>
   </section>
 </main>
@@ -687,14 +742,102 @@ track.innerHTML = PRODUCTS.map((p, i) => `
   </article>`).join('');
 const cards = $$('.card');
 
-/* swatches recolour the garment; add-to-bag bumps the nav */
-let bag = 0;
-function addToBag(n, btn, label){
-  bag += n; $('#bagCount').textContent = bag;
-  const b = $('#bag'); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump');
+/* ---------- the bag: lines of product, colour, size and quantity, kept in this browser ---------- */
+const byId = id => PRODUCTS.find(p => p.id === id);
+const HEADWEAR = ['beanie', 'cap'];
+const FREE_SHIP = 150, SHIP = 9;
+let bag = [];
+try { const b = JSON.parse(localStorage.getItem('yek-bag')); if (Array.isArray(b)) bag = b.filter(l => byId(l.id) && byId(l.id).colors[l.k] && l.qty > 0); } catch (_) {}
+const bagCount = () => bag.reduce((n, l) => n + l.qty, 0);
+const saveBag = () => { try { localStorage.setItem('yek-bag', JSON.stringify(bag)); } catch (_) {} };
+function syncCount(bump){
+  const n = bagCount(), b = $('#bag');
+  $('#bagCount').textContent = n; b.setAttribute('aria-label', `Bag, ${n} ${n === 1 ? 'item' : 'items'}`);
+  if (bump) { b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); }
+}
+function addToBag(items, btn, label){
+  items.forEach(([id, k]) => {
+    const size = HEADWEAR.includes(id) ? 'One size' : 'M';
+    const hit = bag.find(l => l.id === id && l.k === k && l.size === size);
+    if (hit) hit.qty = Math.min(9, hit.qty + 1); else bag.push({ id, k, size, qty: 1 });
+  });
+  saveBag(); syncCount(true); renderBag();
   btn.classList.add('done'); btn.firstChild.textContent = 'Added ';
   clearTimeout(btn.t); btn.t = setTimeout(() => { btn.classList.remove('done'); btn.firstChild.textContent = label; }, 1400);
 }
+const icon = d => `<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="${d}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+const bagWrap = $('#bagWrap');
+function renderBag(){
+  const n = bagCount(), sub = bag.reduce((t, l) => t + byId(l.id).price * l.qty, 0);
+  $('#bagMeta').textContent = n ? `${n} ${n === 1 ? 'piece' : 'pieces'}, ${money(sub)} before shipping.` : 'Nothing in here yet.';
+  if (!n) {
+    bagWrap.innerHTML = `
+      <div class="bag-empty">
+        <h3>Nothing in here yet</h3>
+        <p>Mochi checked twice. Start with the Morning Collection, or take a whole outfit from the lookbook.</p>
+        <div class="cta-row"><a class="btn" href="#/shop">Shop the drop</a><a class="ghost" href="#/lookbook">See the lookbook</a></div>
+      </div>`;
+    return;
+  }
+  const ship = sub >= FREE_SHIP ? 0 : SHIP;
+  bagWrap.innerHTML = `
+    <div class="bag-grid">
+      <div class="bag-lines">${bag.map((l, i) => {
+        const p = byId(l.id), [cname, c] = p.colors[l.k];
+        const size = HEADWEAR.includes(l.id) ? `<span>One size</span>`
+          : `<label>Size <select data-act="size" aria-label="Size of ${p.name}">${SIZES.map(z => `<option${z === l.size ? ' selected' : ''}>${z}</option>`).join('')}</select></label>`;
+        return `
+        <article class="bag-line" data-i="${i}">
+          <div class="art" style="--tint:${c}">${garment(l.id, c, p.accent, 'b' + i)}</div>
+          <div><h3>${p.name}</h3>
+            <div class="bl-opts"><span>${cname}</span>${size}<button class="bl-remove" type="button" data-act="remove">Remove</button></div></div>
+          <div class="qty" role="group" aria-label="Quantity of ${p.name}">
+            <button type="button" data-act="dec" aria-label="One fewer">${icon('M3 7h8')}</button>
+            <span>${l.qty}</span>
+            <button type="button" data-act="inc" aria-label="One more"${l.qty >= 9 ? ' disabled' : ''}>${icon('M7 3v8M3 7h8')}</button>
+          </div>
+          <span class="bl-price">${money(p.price * l.qty)}</span>
+        </article>`; }).join('')}
+      </div>
+      <aside class="bag-sum" aria-label="Order summary">
+        <h2>Summary</h2>
+        <dl>
+          <div><dt>Subtotal</dt><dd>${money(sub)}</dd></div>
+          <div><dt>Shipping</dt><dd>${ship ? money(ship) : 'Free'}</dd></div>
+          <div class="total"><dt>Total</dt><dd>${money(sub + ship)}</dd></div>
+        </dl>
+        <p class="note">${ship ? `Add ${money(FREE_SHIP - sub)} more and shipping is free.` : `Shipping is free on orders over ${money(FREE_SHIP)}.`}</p>
+        <button class="btn" type="button" data-act="checkout">Check out</button>
+        <p class="co-note" id="coNote" aria-live="polite"></p>
+      </aside>
+    </div>`;
+}
+/* re-rendering replaces the controls, so put focus back where it was */
+function updateBag(fn, i, act){
+  fn(); saveBag(); syncCount(false); renderBag();
+  const lines = $$('.bag-line');
+  const target = lines[i] ? lines[i].querySelector(`[data-act="${act}"]:not([disabled])`) || lines[i].querySelector('[data-act="remove"]')
+    : lines.length ? lines[lines.length - 1].querySelector('[data-act="remove"]') : $('#page-bag .page-title');
+  if (target) target.focus({ preventScroll: true });
+}
+bagWrap.addEventListener('click', e => {
+  const b = e.target.closest('button[data-act]'); if (!b) return;
+  const act = b.dataset.act;
+  if (act === 'checkout') { $('#coNote').textContent = 'This is a preview store, so checkout is switched off. Your bag stays saved in this browser.'; return; }
+  const i = +b.closest('.bag-line').dataset.i, l = bag[i];
+  if (act === 'inc') updateBag(() => { l.qty = Math.min(9, l.qty + 1); }, i, act);
+  if (act === 'dec') updateBag(() => { if (--l.qty < 1) bag.splice(i, 1); }, i, act);
+  if (act === 'remove') updateBag(() => { bag.splice(i, 1); }, i, act);
+});
+bagWrap.addEventListener('change', e => {
+  if (!e.target.matches('[data-act="size"]')) return;
+  const i = +e.target.closest('.bag-line').dataset.i, l = bag[i], size = e.target.value;
+  updateBag(() => {
+    const twin = bag.find(o => o !== l && o.id === l.id && o.k === l.k && o.size === size);
+    if (twin) { twin.qty = Math.min(9, twin.qty + l.qty); bag.splice(i, 1); } else l.size = size;
+  }, i, 'size');
+});
+syncCount(false); renderBag();
 track.addEventListener('click', e => {
   if (rail.moved) return;
   const sw = e.target.closest('.swatches button');
@@ -708,12 +851,10 @@ track.addEventListener('click', e => {
     return;
   }
   const add = e.target.closest('.add');
-  if (add) addToBag(1, add, 'Add ');
+  if (add) { const card = add.closest('.card'); addToBag([[PRODUCTS[card.dataset.i].id, +card.querySelector('.swatches [aria-pressed="true"]').dataset.k]], add, 'Add '); }
 });
 
 /* ---------- lookbook: each look is a flat-lay of two or three products ---------- */
-const byId = id => PRODUCTS.find(p => p.id === id);
-const HEADWEAR = ['beanie', 'cap'];
 function lookArt(look, li){
   const two = look.items.length === 2; let topDone = false;
   return look.items.map(([id, k], j) => {
@@ -736,14 +877,14 @@ lookTrack.innerHTML = LOOKS.map((l, i) => {
       <div class="info">
         <h3>${l.name}</h3><span class="price">${money(total)}</span>
         <span class="time">${l.time}</span>
-        <button class="add" type="button" data-n="${ps.length}">Add the look <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+        <button class="add" type="button">Add the look <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
         <ul>${ps.map(p => `<li>${p.name}</li>`).join('')}</ul>
       </div>
     </div>
   </article>`; }).join('');
 lookTrack.addEventListener('click', e => {
   if (lookRail.moved) return;
-  const add = e.target.closest('.add'); if (add) addToBag(+add.dataset.n, add, 'Add the look ');
+  const add = e.target.closest('.add'); if (add) addToBag(LOOKS[add.closest('.look').dataset.i].items, add, 'Add the look ');
 });
 
 /* ---------- nap club ---------- */
@@ -921,7 +1062,7 @@ $$('.rail').forEach(r => {
 
 /* ---------- routes: #/shop, #/drops, #/lookbook, #/nap-club; anything else is Mochi ---------- */
 const hero = $('#hero'), shopNow = $('#shopNow');
-const PAGES = ['shop', 'drops', 'lookbook', 'nap-club'];
+const PAGES = ['shop', 'drops', 'lookbook', 'nap-club', 'bag'];
 const pageEl = name => $('#page-' + name);
 const routeOf = () => { const r = location.hash.replace(/^#\/?/, ''); return PAGES.includes(r) ? r : 'home'; };
 let state = 'hero', current = 'home';                 // hero | opening | page | swapping | closing
@@ -950,7 +1091,7 @@ const UI = {
     if (name === 'drops') tickClocks();
     if (hasGsap) {
       gsap.fromTo(el.querySelectorAll('[data-in]'), { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'expo.out', stagger: .09, overwrite: true });
-      const rows = el.querySelectorAll('.cal-row, .perks li, .meet');
+      const rows = el.querySelectorAll('.cal-row, .perks li, .meet, .bag-line, .bag-empty, .bag-sum');
       if (rows.length) gsap.fromTo(rows, { y: 48, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: 'expo.out', stagger: .07, delay: .12, overwrite: true });
     }
     setTimeout(() => { if (current === name) (r ? r.el : el.querySelector('.page-title')).focus({ preventScroll: true }); }, 600);
@@ -961,7 +1102,7 @@ const UI = {
     if (r) r.slideOut(end); else setTimeout(end, hasGsap ? 520 : 0);
     if (hasGsap) {
       gsap.to(el.querySelectorAll('[data-in]'), { y: -26, opacity: 0, duration: .45, ease: 'power2.in', stagger: .05, overwrite: true });
-      const rows = el.querySelectorAll('.cal-row, .perks li, .meet');
+      const rows = el.querySelectorAll('.cal-row, .perks li, .meet, .bag-line, .bag-empty, .bag-sum');
       if (rows.length) gsap.to(rows, { y: 30, opacity: 0, duration: .4, ease: 'power2.in', stagger: .03, overwrite: true });
     }
   }
@@ -1684,7 +1825,7 @@ function swap(cb){
     .to(LAY.corner, { s: to.s, duration: 0.8, ease: 'power3.inOut' }, 0.1)
     .to(S, { sleep: sleepy(cb.page), duration: 0.8, ease: 'power2.inOut' }, 0.8)
     .call(cb.showPage, null, 0.55)
-    .call(() => { if (C.mode === 'free') C.mode = 'shop'; S.hop = 0; cb.done(); }, null, 1.4);
+    .call(() => { if (C.mode === 'free') C.mode = 'shop'; S.hop = 0; placeCorner(LAY.corner); cb.done(); }, null, 1.4);   // re-measure in case the window resized mid-hop
   if (reduced) tl.timeScale(1.8);
 }
 
